@@ -16,12 +16,12 @@
 </head>
 
 <body>
-  <h1>Hello</h1>
+  <h1>Recipes Made</h1>
   <div id="app">
     <div v-for="recipe in history">
-      <p v-for="info in recipe">
-        {{info}}
-      </p>
+      <!-- <p v-for="info in recipe"> {{info}}</p> -->
+      <p @click="visId(recipe.recipeId)">{{recipe.recipeTitle}}</p>
+
     </div>
   </div>
 

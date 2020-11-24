@@ -1,20 +1,16 @@
-import axios,{
-AxiosResponse,
-AxiosError
+import axios, {
+    AxiosResponse,
+    AxiosError
 } from "../../node_modules/axios/index"
 
 
-interface IRecipe{
-    "Id":number,
-    "Title":string,
-    "LastMade":Date
-
-
-
+interface IRecipe {
+    "recipeId": number,
+    "recipeTitle": string,
+    "LastMade": Date
 }
 
 const baseUrl: string = "http://localhost:55980/";
-
 
 
 
@@ -24,22 +20,40 @@ new Vue({
     // which is included at the bottom of the html file.
     el: "#app",
     data: {
-        history: []
+        history: [],
+        selectedRecipe: {}
 
     },
 
     mounted: async function () {
-        try{this.history = await (await axios.get<IRecipe[]>(baseUrl + "recipe/history")).data}
-        catch (error:AxiosError){
-        console.log(error);
+        try {
+
+            let response: AxiosResponse = await axios.get<IRecipe[]>(baseUrl + "recipe/history");
+
+            this.history = response.data;
         }
-        
-        console.log(this.history)
+        catch (error: AxiosError) {
+            console.log(error);
+        }
     },
 
     methods: {
-        
 
+        async visId(id: number) {
+
+            try {
+
+
+                let response: AxiosResponse = await axios.get<IRecipe>(baseUrl + `recipe/getspecific/${id}`);
+
+                this.selectedRecipe = response.data;
+            }
+            catch (error: AxiosError) {
+                console.log(error);
+            }
+
+
+        }
 
 
 
