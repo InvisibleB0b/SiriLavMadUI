@@ -13,6 +13,50 @@ interface IRecipe {
 const baseUrl: string = "http://localhost:55980/";
 
 
+let oneRecepiFromHistory = {
+    template: '#one-recipe-in-history-template',
+    props: {
+        id: {
+            required: true
+        },
+        title: {
+            required: true
+        }
+    },
+    methods: {
+
+        getRecipeId(id: number) {
+
+            this.$parent.getId(id);
+
+        }
+
+    }
+}
+
+let RecepiInHistoryComponent = {
+    template: '#recipe-history-template',
+    components: {
+        'one-recepi': oneRecepiFromHistory
+    },
+    props: {
+        recepies: {
+            type: Array,
+            required: true
+        }
+    },
+    methods: {
+
+        getId(id: number) {
+
+            this.$parent.visId(id);
+
+        }
+
+    }
+}
+
+
 
 new Vue({
     // TypeScript compiler complains about Vue because the CDN link to Vue is in the html file.
@@ -21,8 +65,13 @@ new Vue({
     el: "#app",
     data: {
         history: [],
-        selectedRecipe: {}
+        selectedRecipe: {},
+        showRecipe: false
 
+    },
+    components: {
+        'history-of-recepies': RecepiInHistoryComponent,
+        'one-recepi': oneRecepiFromHistory
     },
 
     mounted: async function () {
@@ -40,6 +89,10 @@ new Vue({
     methods: {
 
         async visId(id: number) {
+
+
+            this.showRecipe = true;
+            console.log(id);
 
             try {
 
@@ -61,3 +114,7 @@ new Vue({
 
     }
 })
+
+
+
+

@@ -11,19 +11,41 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <link rel="stylesheet" href="styles.css">
 
   <title>Hello app</title>
 </head>
 
 <body>
-  <h1>Recipes Made</h1>
-  <div id="app">
-    <div v-for="recipe in history">
-      <!-- <p v-for="info in recipe"> {{info}}</p> -->
-      <p @click="visId(recipe.recipeId)">{{recipe.recipeTitle}}</p>
 
+  <div id="app" class="row m-0">
+
+    <history-of-recepies :recepies="history"></history-of-recepies>
+
+
+    <div v-if="showRecipe" class="col-6">
+      <p>test</p>
     </div>
+
   </div>
+
+
+  <script type="text/x-template" id="recipe-history-template">
+    <div class="col-6 row">
+      <h1 class="col-12">Recipes Made</h1>
+      <div v-for="recipe in recepies" class="col-12 row">
+      <one-recepi :title="recipe.recipeTitle" :id="recipe.recipeId"></one-recepi>
+     </div>
+    </div>
+  </script>
+
+  <script type="text/x-template" id="one-recipe-in-history-template">
+    <div class="col-12 row">
+    <!-- <p v-for="info in recipe"> {{info}}</p> -->
+    <p class="col-8">{{title}}</p>
+    <button class="col-4 float-right" @click="getRecipeId(id)">Make This Recipe</button>
+  </div>
+  </script>
 
   <script src="bundle.js"></script>
 </body>
