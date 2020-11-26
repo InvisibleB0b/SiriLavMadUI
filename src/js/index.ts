@@ -5,14 +5,14 @@ import axios, {
 
 
 interface IRecipe {
-    "recipeId": number,
-    "recipeTitle": string,
-    "LastMade": Date
+    "id": number,
+    "title": string,
+    "ectendedIngridients": Array<object>
 }
 
 const baseUrl: string = "http://localhost:55980/";
 
-
+//start recipe history
 let oneRecepiFromHistory = {
     template: '#one-recipe-in-history-template',
     props: {
@@ -37,7 +37,7 @@ let oneRecepiFromHistory = {
 let RecepiInHistoryComponent = {
     template: '#recipe-history-template',
     components: {
-        'one-recepi': oneRecepiFromHistory
+        'one-recepi-in-history': oneRecepiFromHistory
     },
     props: {
         recepies: {
@@ -56,8 +56,38 @@ let RecepiInHistoryComponent = {
     }
 }
 
+//end recipe history
+
+//start show one recipe template
 
 
+let oneIngridientComponent = {
+    template: '#one-ingridient-template',
+    props: {
+        ingridient: {
+            type: Object,
+            required: true
+        }
+    }
+}
+
+let showOneRecipeComponent = {
+    template: '#show-one-recipe-template',
+    components: {
+        'one-ingredient': oneIngridientComponent
+    },
+    props: {
+        recipe: {
+            type: Object,
+            required: true
+        }
+    }
+}
+
+
+//end show one recipe template
+
+//start vue app
 new Vue({
     // TypeScript compiler complains about Vue because the CDN link to Vue is in the html file.
     // Before the application runs this TypeScript file will be compiled into bundle.js
@@ -71,7 +101,7 @@ new Vue({
     },
     components: {
         'history-of-recepies': RecepiInHistoryComponent,
-        'one-recepi': oneRecepiFromHistory
+        'one-selected-recipe': showOneRecipeComponent
     },
 
     mounted: async function () {
@@ -100,6 +130,8 @@ new Vue({
                 let response: AxiosResponse = await axios.get<IRecipe>(baseUrl + `recipe/getspecific/${id}`);
 
                 this.selectedRecipe = response.data;
+
+                console.log(this.selectedRecipe);
             }
             catch (error: AxiosError) {
                 console.log(error);
@@ -116,5 +148,4 @@ new Vue({
 })
 
 
-
-
+//end vue app

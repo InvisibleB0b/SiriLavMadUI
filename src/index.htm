@@ -24,17 +24,19 @@
 
 
     <div v-if="showRecipe" class="col-6">
-      <p>test</p>
+      <one-selected-recipe :recipe="selectedRecipe"></one-selected-recipe>
     </div>
 
   </div>
 
 
+  <!-- Start på Recipe history -->
+
   <script type="text/x-template" id="recipe-history-template">
-    <div class="col-6 row">
+    <div class="col-6 ">
       <h1 class="col-12">Recipes Made</h1>
       <div v-for="recipe in recepies" class="col-12 row">
-      <one-recepi :title="recipe.recipeTitle" :id="recipe.recipeId"></one-recepi>
+      <one-recepi-in-history :title="recipe.title" :id="recipe.id"></one-recepi-in-history>
      </div>
     </div>
   </script>
@@ -46,6 +48,43 @@
     <button class="col-4 float-right" @click="getRecipeId(id)">Make This Recipe</button>
   </div>
   </script>
+
+  <!-- Slut på recipe history -->
+
+  <!-- Start templates til vis en recipe -->
+
+  <script type="text/x-template" id="show-one-recipe-template">
+    <div class="col-12">
+      <div class="col-12">
+        <h4>{{recipe.title}}</h4>
+        <p v-html="recipe.summary"></p>
+      </div>
+      <div class="col-12">
+        <h4>Ingridient List</h4>
+        <ul>
+
+          <li v-for="ingridient in recipe.extendedIngredients">
+            <one-ingredient :ingridient="ingridient"></one-ingredient>
+          </li>
+          
+        </ul>
+      </div>
+      <div class="col-12">
+        <h5>Instructions :</h5>
+        <p v-html="recipe.instructions"></p>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-template" id="one-ingridient-template">
+
+    <p v-if="ingridient.name != 'removed'">{{ingridient.name}} {{ingridient.measures.metric.amount}} {{ingridient.measures.metric.unitShort}}</p>
+        
+
+  </script>
+
+
+  <!-- Slut på vis en recipe template -->
 
   <script src="bundle.js"></script>
 </body>
