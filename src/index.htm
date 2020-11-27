@@ -63,8 +63,8 @@
         <h4>Ingridient List</h4>
         <ul>
 
-          <li v-for="ingridient in recipe.extendedIngredients">
-            <one-ingredient :ingridient="ingridient"></one-ingredient>
+          <li v-if="ingridient.name != 'removed'" v-for="ingridient in recipe.extendedIngredients">
+            <one-ingredient  :ingridient="ingridient"></one-ingredient>
           </li>
           
         </ul>
@@ -78,7 +78,7 @@
 
   <script type="text/x-template" id="one-ingridient-template">
 
-    <p v-if="ingridient.name != 'removed'">{{ingridient.name}} {{ingridient.measures.metric.amount}} {{ingridient.measures.metric.unitShort}}</p>
+    <p>{{ingridient.name}} {{ingridient.measures.metric.amount}} {{ingridient.measures.metric.unitShort}}</p>
         
 
   </script>

@@ -58,6 +58,8 @@ let RecepiInHistoryComponent = {
 
 //end recipe history
 
+
+
 //start show one recipe template
 
 
@@ -86,6 +88,8 @@ let showOneRecipeComponent = {
 
 
 //end show one recipe template
+
+
 
 //start vue app
 new Vue({
