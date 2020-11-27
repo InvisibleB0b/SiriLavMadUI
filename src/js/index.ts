@@ -119,22 +119,9 @@ let oneListInShoppingComponent = {
 
         itemIsBought: function (ingridientBought: object) {
 
-            let indexet: number;
+            console.log(ingridientBought);
 
-            console.log(this.$parent.listOfItemsToBuy);
-
-            for (let index = 0; index < this.$parent.listOfItemsToBuy.length; index++) {
-
-                if (this.$parent.listOfItemsToBuy[index].name == ingridientBought.name) indexet = index;
-
-
-
-            }
-
-
-            this.$parent.listOfItemsToBuy.splice(indexet);
-
-            this.$parent.listOfItemsBought.push(ingridientBought);
+            this.$emit('updateShopping', ingridientBought);
 
         }
 
@@ -150,6 +137,15 @@ let entireShoppingListComponent = {
         ingridientstobuy: {
             type: Array,
             required: true
+        }
+    },
+    methods: {
+        updateShopping: function (ingridientBought: object) {
+
+            console.log(ingridientBought);
+
+            this.$emit('handleShopping', ingridientBought);
+
         }
     }
 }
@@ -213,6 +209,27 @@ new Vue({
             }
 
 
+        },
+
+        handleShopping: function (ingredient: object) {
+
+            console.log(ingredient);
+            // let indexet: number;
+
+            // console.log(this.$parent.listOfItemsToBuy);
+
+            // for (let index = 0; index < this.$parent.listOfItemsToBuy.length; index++) {
+
+            //     if (this.$parent.listOfItemsToBuy[index].name == ingridientBought.name) indexet = index;
+
+
+
+            // }
+
+
+            // this.$parent.listOfItemsToBuy.splice(indexet);
+
+            // this.$parent.listOfItemsBought.push(ingridientBought);
         }
 
     }
