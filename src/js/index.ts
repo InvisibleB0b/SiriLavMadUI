@@ -83,11 +83,80 @@ let showOneRecipeComponent = {
             type: Object,
             required: true
         }
+    },
+    methods: {
+        makeShoppingList: function (ingridientList: Array<object>) {
+
+            this.$parent.listOfItemsToBuy = ingridientList;
+
+            this.$parent.selectedView = 'shoppingList';
+        }
     }
 }
 
 
 //end show one recipe template
+
+//Start Shoppinglist components
+
+
+let oneListInShoppingComponent = {
+    template: '#specific-list-template',
+    components: {
+        'one-ingredient': oneIngridientComponent
+    },
+    props: {
+        itemsinbuylist: {
+            type: Array,
+            required: true
+        },
+        title: {
+            type: String,
+            required: true
+        }
+    },
+    methods: {
+
+        itemIsBought: function (ingridientBought: object) {
+
+            let indexet: number;
+
+            console.log(this.$parent.listOfItemsToBuy);
+
+            for (let index = 0; index < this.$parent.listOfItemsToBuy.length; index++) {
+
+                if (this.$parent.listOfItemsToBuy[index].name == ingridientBought.name) indexet = index;
+
+
+
+            }
+
+
+            this.$parent.listOfItemsToBuy.splice(indexet);
+
+            this.$parent.listOfItemsBought.push(ingridientBought);
+
+        }
+
+    }
+}
+
+let entireShoppingListComponent = {
+    template: '#shopping-list-template',
+    components: {
+        'specific-list': oneListInShoppingComponent
+    },
+    props: {
+        ingridientstobuy: {
+            type: Array,
+            required: true
+        }
+    }
+}
+
+
+
+//Slut shoppinglist components
 
 
 
@@ -100,12 +169,16 @@ new Vue({
     data: {
         history: [],
         selectedRecipe: {},
-        showRecipe: false
+        showRecipe: false,
+        listOfItemsToBuy: [],
+        listOfItemsBought: [],
+        selectedView: "history"
 
     },
     components: {
         'history-of-recepies': RecepiInHistoryComponent,
-        'one-selected-recipe': showOneRecipeComponent
+        'one-selected-recipe': showOneRecipeComponent,
+        'shopping-list': entireShoppingListComponent
     },
 
     mounted: async function () {
@@ -124,9 +197,8 @@ new Vue({
 
         async visId(id: number) {
 
-
             this.showRecipe = true;
-            console.log(id);
+
 
             try {
 
@@ -135,7 +207,6 @@ new Vue({
 
                 this.selectedRecipe = response.data;
 
-                console.log(this.selectedRecipe);
             }
             catch (error: AxiosError) {
                 console.log(error);
@@ -143,10 +214,6 @@ new Vue({
 
 
         }
-
-
-
-
 
     }
 })
