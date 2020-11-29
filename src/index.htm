@@ -36,10 +36,6 @@
 
       <shopping-list :ingridientstobuy="listOfItemsToBuy"></shopping-list>
 
-      <!-- <ul>
-        <li v-for="ing in listOfItemsToBuy"> {{ing}}</li>
-      </ul>
-      {{listOfItemsToBuy}} -->
     </div>
 
 
@@ -127,17 +123,6 @@
       
     </div>
 
-  </script>
-
-  <script type="text/x-template" id="specific-list-template">
-      <div class="col-12">
-        <h4>{{title}}</h4>
-            <ul class="col-12">
-              <li v-for="ingridient in itemsinbuylist" @click="itemIsBought(ingridient)" v-if="ingridient.name != 'removed'" > 
-                <one-ingredient :ingridient="ingridient"></one-ingredient>
-              </li>
-            </ul>
-      </div>
   </script>
 
 

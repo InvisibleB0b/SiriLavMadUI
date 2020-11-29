@@ -100,34 +100,6 @@ let showOneRecipeComponent = {
 //Start Shoppinglist components
 
 
-let oneListInShoppingComponent = {
-    template: '#specific-list-template',
-    components: {
-        'one-ingredient': oneIngridientComponent
-    },
-    props: {
-        itemsinbuylist: {
-            type: Array,
-            required: true
-        },
-        title: {
-            type: String,
-            required: true
-        }
-    },
-    methods: {
-
-        itemIsBought: function (ingridientBought: object) {
-
-            console.log(ingridientBought);
-
-            this.$emit('updateShopping', ingridientBought);
-
-        }
-
-    }
-}
-
 let entireShoppingListComponent = {
     template: '#shopping-list-template',
     components: {
