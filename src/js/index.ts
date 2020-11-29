@@ -131,7 +131,13 @@ let oneListInShoppingComponent = {
 let entireShoppingListComponent = {
     template: '#shopping-list-template',
     components: {
-        'specific-list': oneListInShoppingComponent
+        'specific-ingridient': oneIngridientComponent
+    },
+    data: function () {
+        return {
+            itemsBought: [];
+        }
+
     },
     props: {
         ingridientstobuy: {
@@ -142,9 +148,32 @@ let entireShoppingListComponent = {
     methods: {
         updateShopping: function (ingridientBought: object) {
 
-            console.log(ingridientBought);
 
-            this.$emit('handleShopping', ingridientBought);
+            if (this.itemsBought[0] == undefined) {
+                this.itemsBought = [ingridientBought]
+            } else {
+                this.itemsBought.push(ingridientBought);
+            }
+
+            let indexOfIng: number = this.ingridientstobuy.indexOf(ingridientBought);
+
+            this.ingridientstobuy.splice(indexOfIng, 1)
+
+
+        },
+        removeFromShopping: function (ingridientBought: object) {
+
+
+            if (this.ingridientstobuy[0] == undefined) {
+                this.ingridientstobuy = [ingridientBought]
+            } else {
+                this.ingridientstobuy.push(ingridientBought);
+            }
+
+            let indexOfIng: number = this.itemsBought.indexOf(ingridientBought);
+
+            this.itemsBought.splice(indexOfIng, 1)
+
 
         }
     }

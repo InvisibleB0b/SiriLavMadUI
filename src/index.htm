@@ -112,10 +112,16 @@
     <div class="col-12 row">
       <h1 class="col-12">Shopping List</h1>
       <div class="col-6">
-        <specific-list :itemsinbuylist="ingridientstobuy" :title="'Items to Buy'"></specific-list>
+        <h4>Items to Buy</h4>
+        <ul>
+          <li class="shoppingList" v-if="ingridient.name != 'removed'" v-for="ingridient in ingridientstobuy" @click="updateShopping(ingridient)"> <specific-ingridient :ingridient="ingridient"></specific-ingridient></li>
+        </ul>
       </div>
       <div class="col-6">
-        <specific-list :itemsinbuylist="listOfItemsBought" :title="'Items Bought'" v-if="listOfItemsBought!=null"></specific-list>
+        <h4>Items Bought</h4>
+        <ul>
+          <li class="shoppingList" v-for="ingridient in itemsBought" @click="removeFromShopping(ingridient)"> <specific-ingridient :ingridient="ingridient"></specific-ingridient></li>
+        </ul>
       </div>
       
       
