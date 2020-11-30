@@ -107,7 +107,7 @@ let entireShoppingListComponent = {
     },
     data: function () {
         return {
-            itemsBought: [];
+            itemsBought: []
         }
 
     },
