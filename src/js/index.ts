@@ -169,7 +169,8 @@ new Vue({
         showRecipe: false,
         listOfItemsToBuy: [],
         listOfItemsBought: [],
-        selectedView: "history"
+        selectedView: "history",
+        search: ""
 
     },
     components: {
@@ -231,7 +232,32 @@ new Vue({
             // this.$parent.listOfItemsToBuy.splice(indexet);
 
             // this.$parent.listOfItemsBought.push(ingridientBought);
-        }
+        },
+
+        async searchRecipe (search: string) {
+            
+            /* Skal bruge hjælp fra theo angående "facelift" - skal kunne fjerne alt indhold på siden og kun vise den valgt opskrift */
+
+            /* this. */
+
+            try {
+
+                let response: AxiosResponse = await axios.get<IRecipe>(baseUrl + `recipe/search/${search}`);
+
+                this.results = response.data;
+
+                console.log(response);
+
+                console.log(this.results);
+
+            }
+
+            catch (error: AxiosError) {
+                console.log(error);
+            }
+        
+            
+        },
 
     }
 })
