@@ -6,35 +6,39 @@
 
 const path = require('path');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
- 
+
 module.exports = {
   // which files should webpack watch and transpile
-  entry: ['./src/index.htm',  './src/js/index.ts'],
+  entry: ['./src/index.htm', './src/scss/styles.scss', './src/js/index.ts'],
   module: {
     // rules webpack should follow when watching...
     rules: [
-    {
+      {
         //TypeScipt files will be handles (transpiled) by the typescript-loader
         test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/
-    },
-    {
-      // html files will be copied to the dist folder
-      test: /.htm(l*)/,
-      use:
+      },
       {
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]'
+        test: /\.(s*)css$/,
+        use: [{ loader: 'file-loader', options: { name: 'bundle.css' } }, 'extract-loader', 'css-loader', 'sass-loader']
+      },
+      {
+        // html files will be copied to the dist folder
+        test: /.htm(l*)/,
+        use:
+        {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]'
+          }
         }
-      }
-    },
+      },
 
     ]
   },
   resolve: {
-    extensions: [ '.tsx', '.ts', '.js' ]
+    extensions: ['.tsx', '.ts', '.js', '.scss']
   },
   output: {
     publicPath: '/dist/',
