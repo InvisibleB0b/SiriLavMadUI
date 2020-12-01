@@ -58,6 +58,52 @@ let RecepiInHistoryComponent = {
 
 //end recipe history
 
+let searchResultComponent = {
+    template: '#searchresult-template',
+    components: {
+        "one-recepi-in-search" : oneRecepiFromHistory
+    },
+    data: function(){
+        return{
+            results: [],
+            search: ""
+        }
+
+    },
+
+    
+
+    methods: {
+        async searchRecipe (search: string) {
+            
+            /* Skal bruge hjælp fra theo angående "facelift" - skal kunne fjerne alt indhold på siden og kun vise den valgt opskrift */
+
+            /* this. */
+
+            try {
+                
+                let response: AxiosResponse = await axios.get<IRecipe>(baseUrl + `recipe/search/${search}`);
+
+                this.results = response.data;
+                
+                this.search = "";
+                console.log(response);
+
+                console.log(this.results);
+
+            }
+
+            catch (error: AxiosError) {
+                console.log(error);
+            }
+        
+            
+        },
+
+    }
+}
+
+
 
 
 //start show one recipe template
@@ -170,13 +216,13 @@ new Vue({
         listOfItemsToBuy: [],
         listOfItemsBought: [],
         selectedView: "history",
-        search: ""
 
     },
     components: {
         'history-of-recepies': RecepiInHistoryComponent,
         'one-selected-recipe': showOneRecipeComponent,
-        'shopping-list': entireShoppingListComponent
+        'shopping-list': entireShoppingListComponent,
+        'search-result': searchResultComponent
     },
 
     mounted: async function () {
@@ -232,31 +278,6 @@ new Vue({
             // this.$parent.listOfItemsToBuy.splice(indexet);
 
             // this.$parent.listOfItemsBought.push(ingridientBought);
-        },
-
-        async searchRecipe (search: string) {
-            
-            /* Skal bruge hjælp fra theo angående "facelift" - skal kunne fjerne alt indhold på siden og kun vise den valgt opskrift */
-
-            /* this. */
-
-            try {
-
-                let response: AxiosResponse = await axios.get<IRecipe>(baseUrl + `recipe/search/${search}`);
-
-                this.results = response.data;
-
-                console.log(response);
-
-                console.log(this.results);
-
-            }
-
-            catch (error: AxiosError) {
-                console.log(error);
-            }
-        
-            
         },
 
     }
