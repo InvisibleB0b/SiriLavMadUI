@@ -65,8 +65,8 @@
     <div class="card" style="width: 500px; margin-top: 10px">
     <div class="card-body">
 
-      <form class="form-inline my-2 my-lg-0" @submit.prevent="searchRecipe(search)">
-        <input class="form-control mr-sm-2" v-model="search" type="search" placeholder="Search after Recipe" aria-label="Search">
+      <form id="sejt" class="form-inline my-2 my-lg-0" @submit.prevent="searchRecipe(search)">
+        <input id="Search" class="form-control mr-sm-2" v-model="search" type="search" placeholder="Search after Recipe" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="button" v-on:click="searchRecipe(search)">Search</button>
       </form>
 
@@ -79,12 +79,14 @@
             </li>
           </ul>
         </div>
-
     </div>
-
-  
 </div>
-  </script>
+</script>
+<script type="text/x-template" id="recipeResult-template">
+  <div>
+    
+  </div>
+</script>
 
   <!-- TEST  -->
 
@@ -99,8 +101,10 @@
       <div v-for="recipe in recepies" class="col-12 row">
       <one-recepi-in-history :title="recipe.title" :id="recipe.id"></one-recepi-in-history>
     </div>
-    
   </div>
+
+
+
 
   
 </div>

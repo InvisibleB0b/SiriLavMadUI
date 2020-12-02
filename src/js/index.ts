@@ -70,9 +70,6 @@ let searchResultComponent = {
         }
 
     },
-
-    
-
     methods: {
         async searchRecipe (search: string) {
             
@@ -98,10 +95,36 @@ let searchResultComponent = {
             }
         
             
-        },
-
-    }
+        }
 }
+}
+let recipeResultComponent = {
+        template: '#recipeResult-template',
+        props: {
+            id: {
+                required: true
+            },
+            title: {
+                required: true
+            }
+        },
+        methods: {
+    
+            postRecipe: function(postBody: object){
+                axios.post(baseUrl + "recipe/",postBody)
+                  .then((response: AxiosResponse)=>{
+                      console.log(response);
+                  })
+                  .catch((error:AxiosError)=>{
+                      alert(error.message)
+                  })
+                  window.location.reload()
+              }
+    
+        },
+    }
+
+
 
 
 
@@ -222,7 +245,7 @@ new Vue({
         'history-of-recepies': RecepiInHistoryComponent,
         'one-selected-recipe': showOneRecipeComponent,
         'shopping-list': entireShoppingListComponent,
-        'search-result': searchResultComponent
+        'search-result': searchResultComponent,
     },
 
     mounted: async function () {
