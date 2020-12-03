@@ -26,11 +26,26 @@
           <a class="nav-link">Recipe</a>
           <a class="nav-link">My Recipies</a>
           <a class="nav-link">Grocery list</a>
-
+          <form id="sejt" class="form-inline my-2 my-lg-0" @submit.prevent="searchRecipe(search)">
+            <input id="Search" class="form-control mr-sm-2" v-model="search" type="search" placeholder="Search after Recipe" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="button" v-on:click="searchRecipe(search)">Search</button>
+          </form>
 
         </div>
       </ul>
     </nav>
+
+    <div v-for="recipe in results ">
+      <ul>
+        <li>
+          {{recipe.title}}
+          <button @click="postRecipe(recipe)">Lav mig</button>
+        </li>
+      </ul>
+    </div>
+
+
+
 
     <div>
       <search-result>
