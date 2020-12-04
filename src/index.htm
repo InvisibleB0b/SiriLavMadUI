@@ -16,10 +16,43 @@
   <title>Hello app</title>
 </head>
 
-<body>
 
+<body style="background-color: lightgray;">
+  <div class="container-sm" style="background-color: lightgray;" >
   <div id="app">
 
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <ul>
+        <div class="navbar-nav">
+          <a class="nav-link">Recipe</a>
+          <a class="nav-link">My Recipies</a>
+          <a class="nav-link">Grocery list</a>
+          <form id="sejt" class="form-inline my-2 my-lg-0" @submit.prevent="searchRecipe(search)">
+            <input id="Search" class="form-control mr-sm-2" v-model="search" type="search" placeholder="Search after Recipe" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="button" v-on:click="searchRecipe(search)">Search</button>
+          </form>
+
+        </div>
+      </ul>
+    </nav>
+
+    <div v-for="recipe in results ">
+      <ul>
+        <li>
+          {{recipe.title}}
+          <button @click="postRecipe(recipe)">Lav mig</button>
+        </li>
+      </ul>
+    </div>
+
+
+
+
+    <div>
+      <search-result>
+        
+      </search-result>
+    </div>
 
     <div class="row m-0" v-if="selectedView=='history'">
 
@@ -36,30 +69,71 @@
 
       <shopping-list :ingridientstobuy="listOfItemsToBuy"></shopping-list>
 
+      <!-- <ul>
+        <li v-for="ing in listOfItemsToBuy"> {{ing}}</li>
+      </ul>
+      {{listOfItemsToBuy}} -->
     </div>
-
-
-
-
   </div>
 
 
-  <!-- Start på Recipe history -->
+<!-- TEST -->
 
+  <script type="text/x-template" id="searchresult-template">
+    <div class="card" style="width: 500px; margin-top: 10px">
+    <div class="card-body">
+
+      <form id="sejt" class="form-inline my-2 my-lg-0" @submit.prevent="searchRecipe(search)">
+        <input id="Search" class="form-control mr-sm-2" v-model="search" type="search" placeholder="Search after Recipe" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="button" v-on:click="searchRecipe(search)">Search</button>
+      </form>
+
+
+      <h1 class="col-12">Search Results</h1>
+      <div class="col-12 row">
+          <ul>
+            <li v-for="recipe in results">
+              <one-recepi-in-search :title="recipe.title" :id="recipe.id"></one-recepi-in-search>
+            </li>
+          </ul>
+        </div>
+    </div>
+</div>
+</script>
+<script type="text/x-template" id="recipeResult-template">
+  <div>
+    
+  </div>
+</script>
+
+  <!-- TEST  -->
+
+
+  <!-- Start på Recipe history -->
+  
   <script type="text/x-template" id="recipe-history-template">
-    <div class="col-6 ">
+    <div class="card" style="width: 500px; margin-top: 10px" >
+    <div class="card-body">
+    
       <h1 class="col-12">Recipes Made</h1>
       <div v-for="recipe in recepies" class="col-12 row">
       <one-recepi-in-history :title="recipe.title" :id="recipe.id"></one-recepi-in-history>
-     </div>
     </div>
+  </div>
+
+
+
+
+  
+</div>
   </script>
+    
 
   <script type="text/x-template" id="one-recipe-in-history-template">
     <div class="col-12 row">
     <!-- <p v-for="info in recipe"> {{info}}</p> -->
     <p class="col-8">{{title}}</p>
-    <button class="col-4 float-right" @click="getRecipeId(id)">Make This Recipe</button>
+    <button class="col-4 btn-sm btn-success float-right"  @click="getRecipeId(id)">Make This Recipe</button>
   </div>
   </script>
 
@@ -69,6 +143,8 @@
 
   <script type="text/x-template" id="show-one-recipe-template">
     <div class="col-12">
+      <div class="card" style="width: 500px; margin-top: 10px; margin-left: 30px" >
+        <div class="card-body">
       <div class="col-12">
         <h4>{{recipe.title}}</h4>
         <p v-html="recipe.summary"></p>
@@ -89,6 +165,8 @@
         <p v-html="recipe.instructions"></p>
       </div>
     </div>
+      </div>
+    </div>
   </script>
 
   <script type="text/x-template" id="one-ingridient-template">
@@ -104,6 +182,38 @@
   <!-- Start på Shopping list template -->
 
   <script type="text/x-template" id="shopping-list-template">
+
+    <div class="col-12 row">
+      <div class="card" style="width: 500px; margin-top: 10px" >
+        <div class="card-body">
+          <h1 class="col-12">Shopping List</h1>
+          <div class="col-6">
+            <h4>Items to Buy</h4>
+            <ul class="trump">
+              <li class="shoppingList" v-if="ingridient.name != 'removed'" v-for="ingridient in ingridientstobuy" @click="updateShopping(ingridient)"> <specific-ingridient :ingridient="ingridient"></specific-ingridient></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+          <div class="col-6">
+            <div class="card" style="width: 500px; margin-top: 10px" >
+              <div class="card-body">
+
+            <h4>Items Bought</h4>
+            <ul class="trump">
+              <li class="shoppingList" v-for="ingridient in itemsBought" @click="removeFromShopping(ingridient)"> <specific-ingridient :ingridient="ingridient"></specific-ingridient></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+      
+  </div>
+
+  <script type="text/x-template">
+
 
     <div class="col-12 row">
       <h1 class="col-12">Shopping List</h1>
@@ -128,6 +238,8 @@
 
   <!-- slut shopping list template -->
   <script src="bundle.js"></script>
+
+  </div>
 </body>
 
 </html>
