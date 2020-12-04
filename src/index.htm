@@ -16,6 +16,7 @@
   <title>Hello app</title>
 </head>
 
+
 <body style="background-color: lightgray;">
   <div class="container-sm" style="background-color: lightgray;" >
   <div id="app">
@@ -54,6 +55,7 @@
     </div>
 
     <div class="row m-0" v-if="selectedView=='history'">
+
       <history-of-recepies :recepies="history"></history-of-recepies>
 
 
@@ -64,6 +66,7 @@
 
 
     <div class="row m-0" v-if="selectedView=='shoppingList'">
+
       <shopping-list :ingridientstobuy="listOfItemsToBuy"></shopping-list>
 
       <!-- <ul>
@@ -210,6 +213,7 @@
   </div>
 
   <script type="text/x-template">
+
 
     <div class="col-12 row">
       <h1 class="col-12">Shopping List</h1>

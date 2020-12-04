@@ -129,6 +129,7 @@ let recipeResultComponent = {
 
 
 
+
 //start show one recipe template
 
 
@@ -238,14 +239,17 @@ new Vue({
         showRecipe: false,
         listOfItemsToBuy: [],
         listOfItemsBought: [],
+
         selectedView: "history",
         search: "",
         results:[]
+
 
     },
     components: {
         'history-of-recepies': RecepiInHistoryComponent,
         'one-selected-recipe': showOneRecipeComponent,
+
         'shopping-list': entireShoppingListComponent,
         'search-result': searchResultComponent,
     },
@@ -262,6 +266,7 @@ new Vue({
         }
     },
 
+
     methods: {
 
         async visId(id: number) {
@@ -275,6 +280,7 @@ new Vue({
                 let response: AxiosResponse = await axios.get<IRecipe>(baseUrl + `recipe/getspecific/${id}`);
 
                 this.selectedRecipe = response.data;
+
 
             }
             catch (error: AxiosError) {
@@ -343,6 +349,7 @@ new Vue({
     },
 
     }
+
 
 
 //end vue app
