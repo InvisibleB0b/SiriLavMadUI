@@ -65,7 +65,6 @@ let searchResultComponent = {
     },
     data: function(){
         return{
-            results: [],
             search: ""
         }
 
@@ -81,7 +80,7 @@ let searchResultComponent = {
                 
                 let response: AxiosResponse = await axios.get<IRecipe>(baseUrl + `recipe/search/${search}`);
 
-                this.results = response.data;
+                this.$parent.results = response.data;
                 
                 this.search = "";
                 console.log(response);
@@ -101,10 +100,9 @@ let searchResultComponent = {
 let recipeResultComponent = {
         template: '#recipeResult-template',
         props: {
-            id: {
-                required: true
-            },
-            title: {
+            
+            recipe: {
+                type: Object,
                 required: true
             }
         },
@@ -118,7 +116,7 @@ let recipeResultComponent = {
                   .catch((error:AxiosError)=>{
                       alert(error.message)
                   })
-                  window.location.reload()
+                  
               }
     
         },
@@ -248,6 +246,7 @@ new Vue({
         'one-selected-recipe': showOneRecipeComponent,
         'shopping-list': entireShoppingListComponent,
         'search-result': searchResultComponent,
+        'recipe-result': recipeResultComponent
     },
 
     mounted: async function () {

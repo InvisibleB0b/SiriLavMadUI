@@ -35,23 +35,27 @@
       </ul>
     </nav>
 
-    <div v-for="recipe in results ">
+  
+
+
+
+
+    <!-- <div>
+      <search-result>
+
+      </search-result>
+    </div> -->
+
+    <div>
+      <h1>Search Results</h1>
       <ul>
-        <li>
-          {{recipe.title}}
-          <button @click="postRecipe(recipe)">Lav mig</button>
+        <li v-for="recipe in results">
+          <recipe-result :recipe="recipe"></recipe-result>
         </li>
       </ul>
     </div>
 
 
-
-
-    <div>
-      <search-result>
-        
-      </search-result>
-    </div>
 
     <div class="row m-0" v-if="selectedView=='history'">
       <history-of-recepies :recepies="history"></history-of-recepies>
@@ -98,8 +102,10 @@
 </div>
 </script>
 <script type="text/x-template" id="recipeResult-template">
-  <div>
-    
+    <div class="col-12 row">
+    <!-- <p v-for="info in recipe"> {{info}}</p> -->
+    <p class="col-8">{{recipe.title}}</p>
+    <button class="col-4 btn-sm btn-success float-right"  @click="postRecipe(recipe)">do me daddy</button>
   </div>
 </script>
 
