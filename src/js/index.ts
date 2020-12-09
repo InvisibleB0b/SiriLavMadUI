@@ -65,7 +65,9 @@ let searchResultComponent = {
     },
     data: function(){
         return{
-            search: ""
+            search: "",
+            
+            
         }
 
     },
@@ -75,7 +77,8 @@ let searchResultComponent = {
             /* Skal bruge hjælp fra theo angående "facelift" - skal kunne fjerne alt indhold på siden og kun vise den valgt opskrift */
 
             /* this. */
-
+            
+            this.$parent.selectedView = 'search-result';
             try {
                 
                 let response: AxiosResponse = await axios.get<IRecipe>(baseUrl + `recipe/search/${search}`);
@@ -86,6 +89,8 @@ let searchResultComponent = {
                 console.log(response);
 
                 console.log(this.results);
+                
+                
 
             }
 
@@ -116,6 +121,7 @@ let recipeResultComponent = {
                   .catch((error:AxiosError)=>{
                       alert(error.message)
                   })
+                  
                   
               }
     
@@ -330,6 +336,8 @@ new Vue({
 
                 console.log(this.results);
 
+                this.selectedView = "search-result";
+
             }
 
             catch (error: AxiosError) {
@@ -337,7 +345,18 @@ new Vue({
             }
         
             
-        }
+        },
+
+        Myrecipeview: function(){
+            this.selectedView = "history";
+
+        },
+
+        Homefunction: function(){
+            window.location.reload();
+        },
+
+        
 
     },
 
