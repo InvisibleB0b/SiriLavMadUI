@@ -18,77 +18,79 @@
 
 
 <body style="background-color: lightgray;">
-  <div class="container-sm" style="background-color: lightgray;" >
-  <div id="app">
+  <div class="container-sm" style="background-color: lightgray;">
+    <div id="app">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <ul>
-        <div class="navbar-nav">
-          <a class="nav-link" @click="Homefunction()">Home</a>
-          <a class="nav-link" @click="Myrecipeview()">My Recipies</a>
-          <a class="nav-link" @click="SearchresultsView()">Grocery list</a>
-          <form id="sejt" class="form-inline my-2 my-lg-0" @submit.prevent="searchRecipe(search)">
-            <input id="Search" class="form-control mr-sm-2" v-model="search" type="search" placeholder="Search after Recipe" aria-label="Search">
-            
-            <button class="btn btn-outline-success my-2 my-sm-0" type="button" v-on:click="searchRecipe(search)">Search</button>
-          </form>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <ul>
+          <div class="navbar-nav">
+            <a class="nav-link btn" @click="Homefunction()">Home</a>
+            <a class="nav-link btn" @click="Myrecipeview()">My Recipies</a>
+            <a class="nav-link btn" @click="SearchresultsView()">Grocery list</a>
+            <form id="sejt" class="form-inline my-2 my-lg-0" @submit.prevent="searchRecipe(search)">
+              <input id="Search" class="form-control mr-sm-2" v-model="search" type="search"
+                placeholder="Search after Recipe" aria-label="Search">
 
-        </div>
-      </ul>
-    </nav>
+              <button class="btn btn-outline-success my-2 my-sm-0" type="button"
+                v-on:click="searchRecipe(search)">Search</button>
+            </form>
 
-  
-
-
+          </div>
+        </ul>
+      </nav>
 
 
-    <!-- <div>
+
+
+
+
+      <!-- <div>
       <search-result>
 
       </search-result>
     </div> -->
 
-    <div v-if="selectedView=='search-result'">
-      <div class="card" style="width: 500px; margin-top: 10px">
-        <div class="card-body">
-      <h1>Search Results</h1>
-      <ul>
-        <li v-for="recipe in results">
-          <recipe-result :recipe="recipe"></recipe-result>
-        </li>
-      </ul>
+      <div v-if="selectedView=='search-result'">
+        <div class="card" style="width: 500px; margin-top: 10px">
+          <div class="card-body">
+            <h1>Search Results</h1>
+            <ul>
+              <li v-for="recipe in results">
+                <recipe-result :recipe="recipe"></recipe-result>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
 
 
 
-    <div class="row m-0" v-if="selectedView=='history'">
+      <div class="row m-0" v-if="selectedView=='history'">
 
-      <history-of-recepies :recepies="history"></history-of-recepies>
+        <history-of-recepies :recepies="history"></history-of-recepies>
 
 
-      <div v-if="showRecipe" class="col-4">
-        <one-selected-recipe :recipe="selectedRecipe"></one-selected-recipe>
+        <div v-if="showRecipe" class="col-4">
+          <one-selected-recipe :recipe="selectedRecipe"></one-selected-recipe>
+        </div>
       </div>
-    </div>
 
 
-    <div class="row m-0" v-if="selectedView=='shoppingList'">
+      <div class="row m-0" v-if="selectedView=='shoppingList'">
 
-      <shopping-list :ingridientstobuy="listOfItemsToBuy"></shopping-list>
+        <shopping-list :ingridientstobuy="listOfItemsToBuy"></shopping-list>
 
-      <!-- <ul>
+        <!-- <ul>
         <li v-for="ing in listOfItemsToBuy"> {{ing}}</li>
       </ul>
       {{listOfItemsToBuy}} -->
+      </div>
     </div>
-  </div>
 
 
-<!-- TEST -->
+    <!-- TEST -->
 
-  <script type="text/x-template" id="searchresult-template">
+    <script type="text/x-template" id="searchresult-template">
     <div class="card" style="width: 500px; margin-top: 10px">
     <div class="card-body">
 
@@ -110,7 +112,7 @@
     </div>
 </div>
 </script>
-<script type="text/x-template" id="recipeResult-template">
+    <script type="text/x-template" id="recipeResult-template">
     <div class="col-12 row">
     <!-- <p v-for="info in recipe"> {{info}}</p> -->
     <p class="col-8">{{recipe.title}}</p>
@@ -118,12 +120,12 @@
   </div>
 </script>
 
-  <!-- TEST  -->
+    <!-- TEST  -->
 
 
-  <!-- Start på Recipe history -->
-  
-  <script type="text/x-template" id="recipe-history-template">
+    <!-- Start på Recipe history -->
+
+    <script type="text/x-template" id="recipe-history-template">
     <div class="card" style="width: 500px; margin-top: 10px" >
     <div class="card-body">
     
@@ -139,9 +141,9 @@
   
 </div>
   </script>
-    
 
-  <script type="text/x-template" id="one-recipe-in-history-template">
+
+    <script type="text/x-template" id="one-recipe-in-history-template">
     <div class="col-12 row">
     <!-- <p v-for="info in recipe"> {{info}}</p> -->
     <p class="col-8">{{title}}</p>
@@ -149,11 +151,11 @@
   </div>
   </script>
 
-  <!-- Slut på recipe history -->
+    <!-- Slut på recipe history -->
 
-  <!-- Start templates til vis en recipe -->
+    <!-- Start templates til vis en recipe -->
 
-  <script type="text/x-template" id="show-one-recipe-template">
+    <script type="text/x-template" id="show-one-recipe-template">
     <div class="col-12">
       <div class="card" style="width: 500px; margin-top: 10px; margin-left: 30px" >
         <div class="card-body">
@@ -181,7 +183,7 @@
     </div>
   </script>
 
-  <script type="text/x-template" id="one-ingridient-template">
+    <script type="text/x-template" id="one-ingridient-template">
 
     <p>{{ingridient.name}} {{ingridient.measures.metric.amount}} {{ingridient.measures.metric.unitShort}}</p>
         
@@ -189,11 +191,11 @@
   </script>
 
 
-  <!-- Slut på vis en recipe template -->
+    <!-- Slut på vis en recipe template -->
 
-  <!-- Start på Shopping list template -->
+    <!-- Start på Shopping list template -->
 
-  <script type="text/x-template" id="shopping-list-template">
+    <script type="text/x-template" id="shopping-list-template">
 
     <div class="col-12 row">
       <div class="card" style="width: 500px; margin-top: 10px" >
@@ -248,8 +250,8 @@
   </script>
 
 
-  <!-- slut shopping list template -->
-  <script src="bundle.js"></script>
+    <!-- slut shopping list template -->
+    <script src="bundle.js"></script>
 
   </div>
 </body>
