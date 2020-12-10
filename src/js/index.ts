@@ -10,7 +10,7 @@ interface IRecipe {
     "ectendedIngridients": Array<object>
 }
 
-const baseUrl: string = "https://3recipeexam.azurewebsites.net/";
+const baseUrl: string = "http://3recipeexam.azurewebsites.net/";
 
 //start recipe history
 let oneRecepiFromHistory = {
