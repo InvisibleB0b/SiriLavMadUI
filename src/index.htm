@@ -116,7 +116,7 @@
     <div class="col-12 row">
     <!-- <p v-for="info in recipe"> {{info}}</p> -->
     <p class="col-8">{{recipe.title}}</p>
-    <button class="col-4 btn-sm btn-success float-right"  @click="postRecipe(recipe)">do me daddy</button>
+    <button class="col-4 btn-sm btn-success float-right"  @click="postRecipe(recipe)">Make This Recipe</button>
   </div>
 </script>
 
@@ -147,7 +147,7 @@
     <div class="col-12 row">
     <!-- <p v-for="info in recipe"> {{info}}</p> -->
     <p class="col-8">{{title}}</p>
-    <button class="col-4 btn-sm btn-success float-right"  @click="getRecipeId(id)">Make This Recipe</button>
+    <button class="col-4 btn-sm btn-success float-right"  @click="getRecipeId(id)">Remake This Recipe</button>
   </div>
   </script>
 
@@ -209,10 +209,10 @@
           </div>
         </div>
       </div>
-          <div class="col-6">
-            <div class="card" style="width: 500px; margin-top: 10px" >
-              <div class="card-body">
-
+      
+      <div class="col-6">
+        <div class="card" style="width: 500px; margin-top: 10px" >
+          <div class="card-body">
             <h4>Items Bought</h4>
             <ul class="trump">
               <li class="shoppingList" v-for="ingridient in itemsBought" @click="removeFromShopping(ingridient)"> <specific-ingridient :ingridient="ingridient"></specific-ingridient></li>
@@ -222,30 +222,9 @@
       </div>
 
     </div>
-  </div>
-      
-  </div>
+ 
 
-  <script type="text/x-template">
-
-
-    <div class="col-12 row">
-      <h1 class="col-12">Shopping List</h1>
-      <div class="col-6">
-        <h4>Items to Buy</h4>
-        <ul>
-          <li class="shoppingList" v-if="ingridient.name != 'removed'" v-for="ingridient in ingridientstobuy" @click="updateShopping(ingridient)"> <specific-ingridient :ingridient="ingridient"></specific-ingridient></li>
-        </ul>
-      </div>
-      <div class="col-6">
-        <h4>Items Bought</h4>
-        <ul>
-          <li class="shoppingList" v-for="ingridient in itemsBought" @click="removeFromShopping(ingridient)"> <specific-ingridient :ingridient="ingridient"></specific-ingridient></li>
-        </ul>
-      </div>
-      
-      
-    </div>
+ 
 
   </script>
 
