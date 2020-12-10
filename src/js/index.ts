@@ -65,8 +65,9 @@ let searchResultComponent = {
     },
     data: function(){
         return{
-            results: [],
-            search: ""
+            search: "",
+            
+            
         }
 
     },
@@ -76,17 +77,20 @@ let searchResultComponent = {
             /* Skal bruge hjælp fra theo angående "facelift" - skal kunne fjerne alt indhold på siden og kun vise den valgt opskrift */
 
             /* this. */
-
+            
+            this.$parent.selectedView = 'search-result';
             try {
                 
                 let response: AxiosResponse = await axios.get<IRecipe>(baseUrl + `recipe/search/${search}`);
 
-                this.results = response.data;
+                this.$parent.results = response.data;
                 
                 this.search = "";
                 console.log(response);
 
                 console.log(this.results);
+                
+                
 
             }
 
@@ -101,10 +105,9 @@ let searchResultComponent = {
 let recipeResultComponent = {
         template: '#recipeResult-template',
         props: {
-            id: {
-                required: true
-            },
-            title: {
+            
+            recipe: {
+                type: Object,
                 required: true
             }
         },
@@ -118,7 +121,8 @@ let recipeResultComponent = {
                   .catch((error:AxiosError)=>{
                       alert(error.message)
                   })
-                  window.location.reload()
+                  
+                  
               }
     
         },
@@ -252,6 +256,7 @@ new Vue({
 
         'shopping-list': entireShoppingListComponent,
         'search-result': searchResultComponent,
+        'recipe-result': recipeResultComponent
     },
 
     mounted: async function () {
@@ -337,6 +342,8 @@ new Vue({
 
                 console.log(this.results);
 
+                this.selectedView = "search-result";
+
             }
 
             catch (error: AxiosError) {
@@ -344,7 +351,18 @@ new Vue({
             }
         
             
-        }
+        },
+
+        Myrecipeview: function(){
+            this.selectedView = "history";
+
+        },
+
+        Homefunction: function(){
+            window.location.reload();
+        },
+
+        
 
     },
 

@@ -24,11 +24,12 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <ul>
         <div class="navbar-nav">
-          <a class="nav-link">Recipe</a>
-          <a class="nav-link">My Recipies</a>
-          <a class="nav-link">Grocery list</a>
+          <a class="nav-link" @click="Homefunction()">Home</a>
+          <a class="nav-link" @click="Myrecipeview()">My Recipies</a>
+          <a class="nav-link" @click="SearchresultsView()">Grocery list</a>
           <form id="sejt" class="form-inline my-2 my-lg-0" @submit.prevent="searchRecipe(search)">
             <input id="Search" class="form-control mr-sm-2" v-model="search" type="search" placeholder="Search after Recipe" aria-label="Search">
+            
             <button class="btn btn-outline-success my-2 my-sm-0" type="button" v-on:click="searchRecipe(search)">Search</button>
           </form>
 
@@ -36,30 +37,38 @@
       </ul>
     </nav>
 
-    <div v-for="recipe in results ">
+  
+
+
+
+
+    <!-- <div>
+      <search-result>
+
+      </search-result>
+    </div> -->
+
+    <div v-if="selectedView=='search-result'">
+      <div class="card" style="width: 500px; margin-top: 10px">
+        <div class="card-body">
+      <h1>Search Results</h1>
       <ul>
-        <li>
-          {{recipe.title}}
-          <button @click="postRecipe(recipe)">Lav mig</button>
+        <li v-for="recipe in results">
+          <recipe-result :recipe="recipe"></recipe-result>
         </li>
       </ul>
+        </div>
+      </div>
     </div>
 
 
-
-
-    <div>
-      <search-result>
-        
-      </search-result>
-    </div>
 
     <div class="row m-0" v-if="selectedView=='history'">
 
       <history-of-recepies :recepies="history"></history-of-recepies>
 
 
-      <div v-if="showRecipe" class="col-6">
+      <div v-if="showRecipe" class="col-4">
         <one-selected-recipe :recipe="selectedRecipe"></one-selected-recipe>
       </div>
     </div>
@@ -83,12 +92,12 @@
     <div class="card" style="width: 500px; margin-top: 10px">
     <div class="card-body">
 
-      <form id="sejt" class="form-inline my-2 my-lg-0" @submit.prevent="searchRecipe(search)">
+      <form class="form-inline my-2 my-lg-0" @submit.prevent="searchRecipe(search)">
         <input id="Search" class="form-control mr-sm-2" v-model="search" type="search" placeholder="Search after Recipe" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="button" v-on:click="searchRecipe(search)">Search</button>
       </form>
 
-
+      <div v-if="selectedView=='search-result'">
       <h1 class="col-12">Search Results</h1>
       <div class="col-12 row">
           <ul>
@@ -97,12 +106,15 @@
             </li>
           </ul>
         </div>
+      </div>
     </div>
 </div>
 </script>
 <script type="text/x-template" id="recipeResult-template">
-  <div>
-    
+    <div class="col-12 row">
+    <!-- <p v-for="info in recipe"> {{info}}</p> -->
+    <p class="col-8">{{recipe.title}}</p>
+    <button class="col-4 btn-sm btn-success float-right"  @click="postRecipe(recipe)">do me daddy</button>
   </div>
 </script>
 
@@ -158,7 +170,7 @@
           </li>
           
         </ul>
-        <button @click="makeShoppingList(recipe.extendedIngredients)">Make Shopping List</button>
+        <button class="btn-sm btn-success"  @click="makeShoppingList(recipe.extendedIngredients)">Make Shopping List</button>
       </div>
       <div class="col-12">
         <h5>Instructions :</h5>
