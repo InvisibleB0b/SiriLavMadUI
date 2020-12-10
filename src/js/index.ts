@@ -61,72 +61,73 @@ let RecepiInHistoryComponent = {
 let searchResultComponent = {
     template: '#searchresult-template',
     components: {
-        "one-recepi-in-search" : oneRecepiFromHistory
+        "one-recepi-in-search": oneRecepiFromHistory
     },
-    data: function(){
-        return{
+    data: function () {
+        return {
             search: "",
-            
-            
+
+
         }
 
     },
     methods: {
-        async searchRecipe (search: string) {
-            
+        async searchRecipe(search: string) {
+
             /* Skal bruge hjælp fra theo angående "facelift" - skal kunne fjerne alt indhold på siden og kun vise den valgt opskrift */
 
             /* this. */
-            
+
             this.$parent.selectedView = 'search-result';
             try {
-                
+
                 let response: AxiosResponse = await axios.get<IRecipe>(baseUrl + `recipe/search/${search}`);
 
                 this.$parent.results = response.data;
-                
+
                 this.search = "";
                 console.log(response);
 
                 console.log(this.results);
-                
-                
+
+
 
             }
 
             catch (error: AxiosError) {
                 console.log(error);
             }
-        
-            
+
+
         }
-}
+    }
 }
 let recipeResultComponent = {
-        template: '#recipeResult-template',
-        props: {
-            
-            recipe: {
-                type: Object,
-                required: true
-            }
-        },
-        methods: {
-    
-            postRecipe: function(postBody: object){
-                axios.post(baseUrl + "recipe/",postBody)
-                  .then((response: AxiosResponse)=>{
-                      console.log(response);
-                  })
-                  .catch((error:AxiosError)=>{
-                      alert(error.message)
-                  })
-                  
-                  
-              }
-    
-        },
-    }
+    template: '#recipeResult-template',
+    props: {
+
+        recipe: {
+            type: Object,
+            required: true
+        }
+    },
+    methods: {
+
+        postRecipe: function (postBody: IRecipe) {
+            axios.post(baseUrl + "recipe/", postBody)
+                .then((response: AxiosResponse) => {
+                    console.log(response);
+                })
+                .catch((error: AxiosError) => {
+                    alert(error.message)
+                })
+
+            this.$parent.visId(postBody.id);
+            this.$parent.selectedView = 'history';
+        }
+
+    },
+}
 
 
 
@@ -246,7 +247,7 @@ new Vue({
 
         selectedView: "history",
         search: "",
-        results:[]
+        results: []
 
 
     },
@@ -295,48 +296,28 @@ new Vue({
 
         },
 
-        handleShopping: function (ingredient: object) {
-
-            console.log(ingredient);
-            // let indexet: number;
-
-            // console.log(this.$parent.listOfItemsToBuy);
-
-            // for (let index = 0; index < this.$parent.listOfItemsToBuy.length; index++) {
-
-            //     if (this.$parent.listOfItemsToBuy[index].name == ingridientBought.name) indexet = index;
-
-
-
-            // }
-
-
-            // this.$parent.listOfItemsToBuy.splice(indexet);
-
-            // this.$parent.listOfItemsBought.push(ingridientBought);
+        postRecipe: function (postBody: object) {
+            axios.post(baseUrl + "recipe/", postBody)
+                .then((response: AxiosResponse) => {
+                    console.log(response);
+                })
+                .catch((error: AxiosError) => {
+                    alert(error.message)
+                })
+            window.location.reload()
         },
-        postRecipe: function(postBody: object){
-            axios.post(baseUrl + "recipe/",postBody)
-              .then((response: AxiosResponse)=>{
-                  console.log(response);
-              })
-              .catch((error:AxiosError)=>{
-                  alert(error.message)
-              })
-              window.location.reload()
-          },
-          async searchRecipe (search: string) {
-            
+        async searchRecipe(search: string) {
+
             /* Skal bruge hjælp fra theo angående "facelift" - skal kunne fjerne alt indhold på siden og kun vise den valgt opskrift */
 
             /* this. */
 
             try {
-                
+
                 let response: AxiosResponse = await axios.get<IRecipe>(baseUrl + `recipe/search/${search}`);
 
                 this.results = response.data;
-                
+
                 this.search = "";
                 console.log(response);
 
@@ -349,24 +330,28 @@ new Vue({
             catch (error: AxiosError) {
                 console.log(error);
             }
-        
-            
+
+
         },
 
-        Myrecipeview: function(){
+        Myrecipeview: function () {
             this.selectedView = "history";
 
         },
 
-        Homefunction: function(){
+        Homefunction: function () {
             window.location.reload();
         },
 
-        
+        GrocyListView: function () {
+            this.selectedView = "shoppingList";
+        }
+
+
 
     },
 
-    }
+}
 
 
 
