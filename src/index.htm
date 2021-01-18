@@ -20,7 +20,6 @@
 <body style="background-color: lightgray;">
   <div class="container-sm" style="background-color: lightgray;">
     <div id="app">
-
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <ul>
           <div class="navbar-nav">
@@ -51,7 +50,7 @@
     </div> -->
 
       <div v-if="selectedView=='search-result'">
-        <div class="card" style="width: 500px; margin-top: 10px">
+        <div class="card">
           <div class="card-body">
             <h1>Search Results</h1>
             <ul class="dont">
@@ -65,12 +64,12 @@
 
 
 
-      <div class="row m-0" v-if="selectedView=='history'">
+      <div class="container row p-0 m-2 justify-content-between" v-if="selectedView=='history'">
 
         <history-of-recepies :recepies="history"></history-of-recepies>
 
 
-        <div v-if="showRecipe" class="col-4">
+        <div v-if="showRecipe" class="card col-6">
           <one-selected-recipe :recipe="selectedRecipe"></one-selected-recipe>
         </div>
       </div>
@@ -116,7 +115,7 @@
     <div class="col-12 row">
     <!-- <p v-for="info in recipe"> {{info}}</p> -->
     <p class="col-8">{{recipe.title}}</p>
-    <button class="col-4 btn-sm btn-success float-right"  @click="postRecipe(recipe)">Make This Recipe</button>
+    <button class="col-4 btn-sm btn-success float-right mx-auto"  @click="postRecipe(recipe)">Make This Recipe</button>
   </div>
 </script>
 
@@ -126,7 +125,7 @@
     <!-- Start på Recipe history -->
 
     <script type="text/x-template" id="recipe-history-template">
-    <div class="card" style="width: 500px; margin-top: 10px" >
+    <div class="card col-5">
     <div class="card-body">
     
       <h1 class="col-12">Recipes Made</h1>
@@ -156,9 +155,9 @@
     <!-- Start templates til vis en recipe -->
 
     <script type="text/x-template" id="show-one-recipe-template">
-    <div class="col-12">
-      <div class="card" style="width: 500px; margin-top: 10px; margin-left: 30px" >
-        <div class="card-body">
+    <div class="card-body col-12">
+      <div>
+        <div>
       <div class="col-12">
         <h4>{{recipe.title}}</h4>
         <p v-html="recipe.summary"></p>
